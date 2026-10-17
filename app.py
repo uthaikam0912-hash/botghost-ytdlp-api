@@ -87,6 +87,7 @@ def do_download(job_id, url):
                     "download_url": f"{PUBLIC_BASE_URL}/files/{job_id}"
                 })
     except Exception as exc:
+        app.logger.exception("Download failed for job %s", job_id)
         # Keep user-facing errors generic; detailed error text may contain internals.
         with jobs_lock:
             if job_id in jobs:
